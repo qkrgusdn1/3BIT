@@ -164,16 +164,69 @@ public class GameMgr : MonoBehaviourPunCallbacks
 
         while (true)
         {
-            for (int i = players.Count - 1; i >= 0; i--)
+            for (int i = 0; i < players.Count; i++)
             {
                 if (players[i] == null)
                 {
                     players.RemoveAt(i);
+                    i--;
+                    UpdatePlayers();
                 }
             }
             yield return new WaitForSeconds(1);
         }
 
+    }
+
+    void UpdatePlayers()
+    {
+        bool inTagger = false;
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i].gameObject.CompareTag("Tagger"))
+            {
+                inTagger = true;
+                break;
+            }
+        }
+
+        if (!inTagger)
+        {
+            ClearMgr.Instance.win = true;
+            MoveClearScenes();
+            return;
+        }
+        if (players.Count == 1)
+        {
+            if (players[0].gameObject.CompareTag("Runner"))
+            {
+                ClearMgr.Instance.win = true;
+                MoveClearScenes();
+            }
+            else if (players[0].gameObject.CompareTag("Tagger"))
+            {
+                ClearMgr.Instance.win = false;
+                MoveClearScenes();
+            }
+        }
+        else if (players.Count <= 3 && !player.threePlayer)
+        {
+            MissionMgr.Instance.allMissionCountBar.SetActive(false);
+            MissionMgr.Instance.taggerImage.gameObject.SetActive(true);
+            if (player.gameObject.CompareTag("Tagger"))
+            {
+                player.maxMoveSpeed = player.maxMoveSpeed + 5;
+                player.moveSpeed = player.maxMoveSpeed;
+
+            }
+            else if (player.gameObject.CompareTag("Runner"))
+            {
+                player.maxMoveSpeed = player.maxMoveSpeed - 3;
+                player.moveSpeed = player.maxMoveSpeed;
+
+            }
+            player.threePlayer = true;
+        }
     }
 
     private void Update()

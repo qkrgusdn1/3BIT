@@ -109,7 +109,7 @@ public class Tagger : Player
             base.TakeDamage(damage);
             if (lockPower)
             {
-                StartGame.Instance.unLock = true;
+      
                 lockPower = false;
             }
 
