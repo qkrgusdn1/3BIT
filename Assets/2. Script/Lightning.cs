@@ -28,7 +28,8 @@ public class Lightning : MonoBehaviour
         if (player != null)
         {
             player.TakeDamage(damage);
-            player.photonView.RPC("RPCApplySkill", Photon.Pun.RpcTarget.All, Skill.Stun);
+            if(!player.back)
+                player.photonView.RPC("RPCApplySkill", Photon.Pun.RpcTarget.All, Skill.Stun);
         }
 
         Invoke("Destroy", destroyTime);

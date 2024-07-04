@@ -99,7 +99,8 @@ public class Tagger : Player
     {
         moveSpeed = newMoveSpeed;
         jumpForce = newJumpForce;
-        rb.velocity = newVelocity;
+        Vector3 currentVelocity = rb.velocity;
+        rb.velocity = new Vector3(newVelocity.x, currentVelocity.y, newVelocity.z);
     }
     public override void TakeDamage(float damage)
     {
@@ -108,7 +109,7 @@ public class Tagger : Player
             base.TakeDamage(damage);
             if (lockPower)
             {
-                StartGame.Instance.taggerWin = true;
+                StartGame.Instance.unLock = true;
                 lockPower = false;
             }
 
@@ -120,6 +121,7 @@ public class Tagger : Player
     {
         if(skill == Skill.Stun)
         {
+            stun = false;
             animator.SetTrigger("EndStun");
             currentSkill = Skill.Default;
         }
@@ -128,7 +130,7 @@ public class Tagger : Player
     [PunRPC]
     public void RpcAttack()
     {
-        
+
         attackSound.Play();
         Debug.Log("Tagger RpcAttack");
         animator.SetLayerWeight(upperLayer, 1);

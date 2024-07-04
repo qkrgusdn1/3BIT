@@ -24,7 +24,7 @@ public class GameMgr : MonoBehaviourPunCallbacks
     public GameObject connection;
     public GameObject lobbyLodingPanel;
 
-    bool threePlayer;
+    public bool threePlayer;
     void Start()
     {
         SliderControl.sensitivityValue = PlayerPrefs.GetFloat("Sensitivity", 1);
@@ -140,17 +140,17 @@ public class GameMgr : MonoBehaviourPunCallbacks
                 player.threePlayer = true;
             }
             yield return new WaitForSeconds(1);
-            
-            bool tagger = true;
+
+            bool taggerExists = false;
             for (int i = 0; i < players.Count; i++)
             {
                 if (players[i].gameObject.CompareTag("Tagger"))
                 {
-                    tagger = false;
+                    taggerExists = true;
                     break;
                 }
             }
-            if (tagger)
+            if (!taggerExists)
             {
                 ClearMgr.Instance.win = true;
                 MoveClearScenes();

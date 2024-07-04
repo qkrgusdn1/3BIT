@@ -1,6 +1,4 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HammerMan : Player
@@ -86,13 +84,13 @@ public class HammerMan : Player
         if (target.CompareTag("Tagger"))
         {
             Debug.Log("HammerMan Attack2");
-            target.photonView.RPC("RPCApplySkill", Photon.Pun.RpcTarget.All, Skill.Back);
+            if(!target.stun)
+                target.photonView.RPC("RPCApplySkill", Photon.Pun.RpcTarget.All, Skill.Back);
         }
     }
     [PunRPC]
     public void RpcAttack()
     {
-        
         attackSound.Play();
         animator.SetLayerWeight(upperLayer, 1);
         animator.Play("Attack");

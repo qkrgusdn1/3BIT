@@ -16,6 +16,8 @@ public class Player : MonoBehaviourPunCallbacks
     public float rotationX;
     public Rigidbody rb;
 
+    public bool stun;
+
     public AudioSource attackSound;
 
     public float moveSpeed;
@@ -223,13 +225,16 @@ public class Player : MonoBehaviourPunCallbacks
         if (currentSkill == Skill.Default)
         {
             animator.SetTrigger("EndStun");
+            
         }
-        else if (currentSkill == Skill.Stun)
+        else if (currentSkill == Skill.Stun && !back)
         {
             animator.Play("Stun");
+            stun = true;
         }
-        else if (currentSkill == Skill.Back)
+        else if (currentSkill == Skill.Back && !stun)
         {
+            back = true;
             moveBackCoroutine = StartCoroutine(MoveBackCoroutine());
         }
     }

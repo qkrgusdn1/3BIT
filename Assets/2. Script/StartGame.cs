@@ -22,7 +22,7 @@ public class StartGame : MonoBehaviourPunCallbacks
     public int minutes;
     public int seconds;
 
-    public bool taggerWin;
+    public bool unLock;
 
     float count;
     public float maxCount;
@@ -110,14 +110,21 @@ public class StartGame : MonoBehaviourPunCallbacks
             yield return new WaitForSeconds(1);
             
         }
-        if (taggerWin)
+        if (unLock)
         {
             ClearMgr.Instance.win = false;
+
         }
-        else
+        else if(!unLock)
         {
             ClearMgr.Instance.win = true;
+            if (GameMgr.Instance.players.Count < 4)
+            {
+                ClearMgr.Instance.win = true;
+            }
         }
+            
+
 
         if (PhotonNetwork.IsMasterClient)
             GameMgr.Instance.MoveClearScenes();
