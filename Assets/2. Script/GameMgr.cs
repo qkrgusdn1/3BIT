@@ -170,7 +170,8 @@ public class GameMgr : MonoBehaviourPunCallbacks
                 {
                     players.RemoveAt(i);
                     i--;
-                    UpdatePlayers();
+                    if(!player.startPlayer)
+                        UpdatePlayers();
                 }
             }
             yield return new WaitForSeconds(1);

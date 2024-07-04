@@ -37,7 +37,6 @@ public class JoinRoomPanel : MonoBehaviourPunCallbacks
             {
                 if (!buttons[j].gameObject.activeSelf)
                 {
-                    buttons[j].gameObject.SetActive(true);
                     button = buttons[j];
                     break;
                 }
@@ -47,6 +46,7 @@ public class JoinRoomPanel : MonoBehaviourPunCallbacks
                 button = Instantiate(joinRoomJoinButton, roomGroupTr);
                 buttons.Add(button);
             }
+            button.gameObject.SetActive(true);
             button.SetRoom(roomList[i]);
         }
     }
