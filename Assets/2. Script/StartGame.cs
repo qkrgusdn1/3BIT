@@ -111,7 +111,14 @@ public class StartGame : MonoBehaviourPunCallbacks
         ClearMgr.Instance.win = false;
         if (GameMgr.Instance.players.Count < 4)
         {
-            ClearMgr.Instance.win = true;
+            if (MissionMgr.Instance.missionCountBar.fillAmount >= 1)
+            {
+                ClearMgr.Instance.win = false;
+            }
+            else
+            {
+                ClearMgr.Instance.win = true;
+            }
         }
         if (PhotonNetwork.IsMasterClient)
             GameMgr.Instance.MoveClearScenes();
