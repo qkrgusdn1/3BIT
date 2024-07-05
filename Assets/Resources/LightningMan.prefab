@@ -12079,7 +12079,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   hp: 0
-  maxHp: 100
+  maxHp: 150
   hpBarCanvas: {fileID: 4727064970904640370}
   hpBar: {fileID: 3467590951801689318}
   hpBarMine: {fileID: 5472933709533291859}

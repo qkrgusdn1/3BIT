@@ -2785,7 +2785,7 @@ MonoBehaviour:
   attackSound: {fileID: 9164256357102565500}
   moveSpeed: 0
   maxMoveSpeed: 8
-  maxJumpForce: 25
+  maxJumpForce: 20
   isGrounded: 0
   esc: 0
   mission: 0
@@ -2793,7 +2793,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   hp: 0
-  maxHp: 500
+  maxHp: 350
   hpBarCanvas: {fileID: 2461391412047452862}
   hpBar: {fileID: 1846753314014777909}
   hpBarMine: {fileID: 860101436189579951}

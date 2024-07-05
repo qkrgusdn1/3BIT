@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 
 public class GameMgr : MonoBehaviourPunCallbacks
 {
@@ -18,6 +19,8 @@ public class GameMgr : MonoBehaviourPunCallbacks
     public GameObject escPanel;
     public GameObject settingPanel;
 
+    public TMP_Text playerCountText;
+
     public List<Player> players = new List<Player>();
     public Player player;
     public GameObject diePanel;
@@ -32,6 +35,7 @@ public class GameMgr : MonoBehaviourPunCallbacks
         Cursor.lockState = CursorLockMode.Locked;
         PhotonNetwork.Instantiate("Player", new Vector3(0, 0, 0), Quaternion.identity);
         StartCoroutine(CoUpdate());
+        UpdatePlayerCountText();
     }
     public void MoveClearScenes()
     {
@@ -67,6 +71,7 @@ public class GameMgr : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         Debug.Log("LeftRoom ¹æ¶°³²");
+
         lobbyLodingPanel.SetActive(true);
         PhotonNetwork.LoadLevel("SampleScene");
     }
@@ -174,10 +179,12 @@ public class GameMgr : MonoBehaviourPunCallbacks
                         UpdatePlayers();
                 }
             }
+            
             yield return new WaitForSeconds(1);
         }
 
     }
+
 
     void UpdatePlayers()
     {
@@ -232,7 +239,11 @@ public class GameMgr : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        
+        if (PhotonNetwork.IsMasterClient)
+        {
+            UpdatePlayerCountText();
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape) && !player.esc)
         {
             Cursor.lockState = CursorLockMode.None;
@@ -253,6 +264,20 @@ public class GameMgr : MonoBehaviourPunCallbacks
         }
     }
 
+
+    void UpdatePlayerCountText()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("RPCUpdatePlayerCountText", RpcTarget.All, PhotonNetwork.CurrentRoom.PlayerCount);
+        }
+    }
+
+    [PunRPC]
+    void RPCUpdatePlayerCountText(int count)
+    {
+        playerCountText.text = "(" + count + "/4)";
+    }
 
 
 }
