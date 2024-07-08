@@ -14,15 +14,8 @@ public class PlayerWall : MonoBehaviour
     }
     private void Update()
     {
-        dir = Vector3.zero;
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            dir += -transform.right * moveSpeed;
-        }
-        else if(Input.GetKey(KeyCode.RightArrow))
-        {
-            dir += transform.right * moveSpeed;
-        }
-        rb.velocity = new Vector3(dir.x, rb.velocity.y);
+        float horInput = Input.GetAxis("Horizontal");
+        Vector3 dir = new Vector3(horInput * moveSpeed, rb.velocity.y);
+        rb.velocity = dir;
     }
 }
