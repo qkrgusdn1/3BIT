@@ -27,6 +27,7 @@ public class WinList : MonoBehaviour
 
     public void OnClickedLobbyBtn()
     {
+        ClearMgr.Instance.lobbyLodingPanel = null;
         ClearMgr.Instance.MoveLobby();
     }
 

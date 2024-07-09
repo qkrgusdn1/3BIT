@@ -11,12 +11,13 @@ public class ClearMgr : MonoBehaviourPunCallbacks
         get { return instance; }
     }
     public GameObject lobbyLodingPanel;
-
+    public Texture2D cusor;
     public bool win;
     void Awake()
     {
         instance = this;
         DontDestroyOnLoad(gameObject);
+        Cursor.SetCursor(cusor, Vector2.zero, CursorMode.ForceSoftware);
     }
     public override void OnLeftRoom()
     {

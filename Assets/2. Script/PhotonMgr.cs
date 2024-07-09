@@ -21,7 +21,7 @@ public class PhotonMgr : MonoBehaviourPunCallbacks
 
     public GameObject serverLodingPanel;
     public GameObject roomLodingPanel;
-    private void Start()
+    public void Start()
     {
         TryToJoinServer();
     }
