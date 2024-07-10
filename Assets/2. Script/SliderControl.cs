@@ -14,6 +14,7 @@ public class SliderControl : MonoBehaviour
     {
         musicSlider.value = SoundMgr.Instance.inGameMusic.volume;
         musicSlider.value = SoundMgr.Instance.lobbyMusic.volume;
+        musicSlider.value = SoundMgr.Instance.startMusic.volume;
         attackSoundSlider.value = SoundMgr.Instance.attackSoundVolume;
         sensitivitySlider.value = PlayerPrefs.GetFloat("Sensitivity", 1);
         sensitivityValue = sensitivitySlider.value;
@@ -23,6 +24,7 @@ public class SliderControl : MonoBehaviour
     {
         PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
         SoundMgr.Instance.inGameMusic.volume = musicSlider.value;
+        SoundMgr.Instance.startMusic.volume = musicSlider.value;
         SoundMgr.Instance.lobbyMusic.volume = musicSlider.value;
         SoundMgr.Instance.musicVolume = musicSlider.value;
     }

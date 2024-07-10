@@ -25,7 +25,7 @@ public class StartGame : MonoBehaviourPunCallbacks
     float count;
     public float maxCount;
 
-    public AudioSource music;
+    public AudioSource inGameMusic;
 
     public List<string> powers = new List<string>();
 
@@ -34,7 +34,7 @@ public class StartGame : MonoBehaviourPunCallbacks
     private void Start()
     {
         photonView.RPC("RPCEnteredPlayer", RpcTarget.All);
-        music = SoundMgr.Instance.inGameMusic;
+        inGameMusic = SoundMgr.Instance.inGameMusic;
     }
 
 
@@ -83,7 +83,8 @@ public class StartGame : MonoBehaviourPunCallbacks
                 }
                 StartCoroutine(GameMgr.Instance.ExecutePlayerCountAction());
                 StartCoroutine(CoTimer());
-                music.gameObject.SetActive(false);
+                inGameMusic.gameObject.SetActive(false);
+                SoundMgr.Instance.startMusic.gameObject.SetActive(true);
                 break;
 
             }

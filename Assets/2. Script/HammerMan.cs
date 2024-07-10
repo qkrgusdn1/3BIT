@@ -46,7 +46,7 @@ public class HammerMan : Player
     {
         if (!photonView.IsMine)
             return;
-        
+
 
         if (skillTimer <= maxSkillTimer)
         {
@@ -62,8 +62,15 @@ public class HammerMan : Player
         }
         
         base.Update();
+        if (esc || mission)
+        {
+            animator.SetBool("IsRunning", false);
+            rb.velocity = new Vector3(0, rb.velocity.y, 0);
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
         {
+            
             if (skillTimer >= maxSkillTimer)
             {
                 attackSound.volume = SoundMgr.Instance.attackSoundVolume;

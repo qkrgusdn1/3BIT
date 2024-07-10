@@ -8,6 +8,7 @@ public class SoundMgr : MonoBehaviour
     public float attackSoundVolume;
     public AudioSource inGameMusic;
     public AudioSource lobbyMusic;
+    public AudioSource startMusic;
     public static SoundMgr Instance
     {
         get { return instance; }
@@ -21,6 +22,7 @@ public class SoundMgr : MonoBehaviour
             musicVolume = PlayerPrefs.GetFloat("MusicVolume", musicVolume);
             inGameMusic.volume = musicVolume;
             lobbyMusic.volume = musicVolume;
+            startMusic.volume = musicVolume;
             attackSoundVolume = PlayerPrefs.GetFloat("AttackSoundVolume", attackSoundVolume);
         }
         else

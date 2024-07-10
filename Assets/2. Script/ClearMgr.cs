@@ -31,6 +31,7 @@ public class ClearMgr : MonoBehaviourPunCallbacks
     public void MoveLobby()
     {
         SoundMgr.Instance.lobbyMusic.gameObject.SetActive(true);
+        SoundMgr.Instance.startMusic.gameObject.SetActive(false);
         SoundMgr.Instance.inGameMusic.gameObject.SetActive(false);
 
         PhotonNetwork.LeaveRoom();

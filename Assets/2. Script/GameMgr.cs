@@ -79,8 +79,8 @@ public class GameMgr : MonoBehaviourPunCallbacks
     public void OnClickedLobbyBtn()
     {
         SoundMgr.Instance.lobbyMusic.gameObject.SetActive(true);
+        SoundMgr.Instance.startMusic.gameObject.SetActive(false);
         SoundMgr.Instance.inGameMusic.gameObject.SetActive(false);
-
 
         PhotonNetwork.LeaveRoom();
     }
@@ -159,6 +159,7 @@ public class GameMgr : MonoBehaviourPunCallbacks
             {
                 ClearMgr.Instance.win = true;
                 MoveClearScenes();
+                break;
             }
 
         }
@@ -202,6 +203,7 @@ public class GameMgr : MonoBehaviourPunCallbacks
         {
             ClearMgr.Instance.win = true;
             MoveClearScenes();
+            StopAllCoroutines();
             return;
         }
         if (players.Count == 1)
@@ -210,11 +212,13 @@ public class GameMgr : MonoBehaviourPunCallbacks
             {
                 ClearMgr.Instance.win = true;
                 MoveClearScenes();
+                StopAllCoroutines();
             }
             else if (players[0].gameObject.CompareTag("Tagger"))
             {
                 ClearMgr.Instance.win = false;
                 MoveClearScenes();
+                StopAllCoroutines();
             }
         }
         else if (players.Count <= 3 && !player.threePlayer)

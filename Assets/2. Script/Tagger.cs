@@ -48,6 +48,7 @@ public class Tagger : Player
         if (!photonView.IsMine)
             return;
 
+
         if (skillTimer <= maxSkillTimer)
         {
             skillTimer += Time.deltaTime;
@@ -79,7 +80,13 @@ public class Tagger : Player
         if (currentSkill == Skill.Default)
         {
             base.Update();
-            
+
+            if (esc || mission)
+            {
+                animator.SetBool("IsRunning", false);
+                rb.velocity = new Vector3(0, rb.velocity.y, 0);
+                return;
+            }
             if (Input.GetMouseButtonDown(0))
             {
                 if (skillTimer >= maxSkillTimer)
