@@ -75,9 +75,9 @@ public class StartGame : MonoBehaviourPunCallbacks
             {
                 countTxt.gameObject.SetActive(false);
                 gameTimerText.gameObject.SetActive(true);
+                photonView.RPC("RpcRandomPowers", RpcTarget.All);
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    RandomPowers();
                     CountingPlayerPowers();
                     connectionCrystalPosition.StartGame();
                 }
@@ -131,7 +131,8 @@ public class StartGame : MonoBehaviourPunCallbacks
     //    Player[] foundPlayers = FindObjectsOfType<Player>();
     //    players.AddRange(foundPlayers);
     //}
-    public void RandomPowers()
+    [PunRPC]
+    public void RpcRandomPowers()
     {
         for (int i = powers.Count - 1; i > 0; i--)
         {
