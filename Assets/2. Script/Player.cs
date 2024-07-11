@@ -184,7 +184,7 @@ public class Player : MonoBehaviourPunCallbacks
             {
                 photonView.RPC("RpcDIe", RpcTarget.All);
                 GameMgr.Instance.MoveClearScenes();
-
+                return;
             }
             photonView.RPC("RpcDIe", RpcTarget.All);
         }

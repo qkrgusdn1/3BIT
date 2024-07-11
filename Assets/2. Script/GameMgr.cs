@@ -39,6 +39,8 @@ public class GameMgr : MonoBehaviourPunCallbacks
     }
     public void MoveClearScenes()
     {
+        StopAllCoroutines();
+
         photonView.RPC("RPCMoveClearScenes", RpcTarget.All);
     }
 
