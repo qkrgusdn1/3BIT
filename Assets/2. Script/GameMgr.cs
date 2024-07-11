@@ -216,6 +216,13 @@ public class GameMgr : MonoBehaviourPunCallbacks
         bool inTagger = false;
         for (int i = 0; i < players.Count; i++)
         {
+            if (players[i] == null)
+            {
+                players.RemoveAt(i);
+                i--;
+                continue;
+            }
+
             if (players[i].gameObject.CompareTag("Tagger"))
             {
                 inTagger = true;
