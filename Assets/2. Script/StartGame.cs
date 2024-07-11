@@ -81,7 +81,7 @@ public class StartGame : MonoBehaviourPunCallbacks
                     CountingPlayerPowers();
                     connectionCrystalPosition.StartGame();
                 }
-                StartCoroutine(GameMgr.Instance.ExecutePlayerCountAction());
+                //StartCoroutine(GameMgr.Instance.ExecutePlayerCountAction());
                 StartCoroutine(CoTimer());
                 inGameMusic.gameObject.SetActive(false);
                 SoundMgr.Instance.startMusic.gameObject.SetActive(true);

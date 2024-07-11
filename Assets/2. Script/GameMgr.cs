@@ -39,6 +39,7 @@ public class GameMgr : MonoBehaviourPunCallbacks
     }
     public void MoveClearScenes()
     {
+        Debug.Log("MoveScenes");
         StopAllCoroutines();
 
         photonView.RPC("RPCMoveClearScenes", RpcTarget.All);
@@ -87,12 +88,93 @@ public class GameMgr : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
-    public IEnumerator ExecutePlayerCountAction()
+    //public IEnumerator ExecutePlayerCountAction()
+    //{
+    //    while (true)
+    //    {
+    //        bool haveStartPlayer = false;
+    //        for(int i = 0; i < players.Count; i++)
+    //        {
+    //            if (players[i].startPlayer)
+    //            {
+    //                haveStartPlayer = true;
+    //                break;
+    //            }
+    //        }
+    //        if (haveStartPlayer)
+    //        {
+    //            yield return new WaitForSeconds(1);
+    //            continue;
+    //        }
+    //        else
+    //        {
+    //            break;
+    //        }
+    //    }
+
+    //    while (true)
+    //    {
+    //        Debug.Log("PlayerCount");
+    //        yield return new WaitForSeconds(1);
+    //        if (players.Count == 1)
+    //        {
+    //            if (players[0].gameObject.CompareTag("Runner"))
+    //            {
+    //                ClearMgr.Instance.win = true;
+    //                MoveClearScenes();
+    //            }
+    //            else if (players[0].gameObject.CompareTag("Tagger"))
+    //            {
+    //                ClearMgr.Instance.win = false;
+    //                MoveClearScenes();
+    //            }
+    //        }
+    //        else if (players.Count <= 3 && !player.threePlayer)
+    //        {
+    //            MissionMgr.Instance.allMissionCountBar.SetActive(false);
+    //            MissionMgr.Instance.taggerImage.gameObject.SetActive(true);
+    //            if (player.gameObject.CompareTag("Tagger"))
+    //            {
+    //                player.maxMoveSpeed = player.maxMoveSpeed + 5;
+    //                player.moveSpeed = player.maxMoveSpeed;
+
+    //            }
+    //            else if (player.gameObject.CompareTag("Runner"))
+    //            {
+    //                player.maxMoveSpeed = player.maxMoveSpeed - 3;
+    //                player.moveSpeed = player.maxMoveSpeed;
+
+    //            }
+    //            player.threePlayer = true;
+    //        }
+    //        yield return new WaitForSeconds(1);
+
+    //        bool taggerExists = false;
+    //        for (int i = 0; i < players.Count; i++)
+    //        {
+    //            if (players[i].gameObject.CompareTag("Tagger"))
+    //            {
+    //                taggerExists = true;
+    //                break;
+    //            }
+    //        }
+    //        if (!taggerExists)
+    //        {
+                
+    //            ClearMgr.Instance.win = true;
+    //            MoveClearScenes();
+    //            break;
+    //        }
+
+    //    }
+    //}
+
+    public IEnumerator CoUpdate()
     {
         while (true)
         {
             bool haveStartPlayer = false;
-            for(int i = 0; i < players.Count; i++)
+            for (int i = 0; i < players.Count; i++)
             {
                 if (players[i].startPlayer)
                 {
@@ -110,66 +192,6 @@ public class GameMgr : MonoBehaviourPunCallbacks
                 break;
             }
         }
-
-        while (true)
-        {
-            Debug.Log("PlayerCount");
-            yield return new WaitForSeconds(1);
-            if (players.Count == 1)
-            {
-                if (players[0].gameObject.CompareTag("Runner"))
-                {
-                    ClearMgr.Instance.win = true;
-                    MoveClearScenes();
-                }
-                else if (players[0].gameObject.CompareTag("Tagger"))
-                {
-                    ClearMgr.Instance.win = false;
-                    MoveClearScenes();
-                }
-            }
-            else if (players.Count <= 3 && !player.threePlayer)
-            {
-                MissionMgr.Instance.allMissionCountBar.SetActive(false);
-                MissionMgr.Instance.taggerImage.gameObject.SetActive(true);
-                if (player.gameObject.CompareTag("Tagger"))
-                {
-                    player.maxMoveSpeed = player.maxMoveSpeed + 5;
-                    player.moveSpeed = player.maxMoveSpeed;
-
-                }
-                else if (player.gameObject.CompareTag("Runner"))
-                {
-                    player.maxMoveSpeed = player.maxMoveSpeed - 3;
-                    player.moveSpeed = player.maxMoveSpeed;
-
-                }
-                player.threePlayer = true;
-            }
-            yield return new WaitForSeconds(1);
-
-            bool taggerExists = false;
-            for (int i = 0; i < players.Count; i++)
-            {
-                if (players[i].gameObject.CompareTag("Tagger"))
-                {
-                    taggerExists = true;
-                    break;
-                }
-            }
-            if (!taggerExists)
-            {
-                ClearMgr.Instance.win = true;
-                MoveClearScenes();
-                break;
-            }
-
-        }
-    }
-
-    public IEnumerator CoUpdate()
-    {
-
         while (true)
         {
             for (int i = 0; i < players.Count; i++)
@@ -178,8 +200,8 @@ public class GameMgr : MonoBehaviourPunCallbacks
                 {
                     players.RemoveAt(i);
                     i--;
-                    if(!player.startPlayer)
-                        UpdatePlayers();
+                    UpdatePlayers();
+
                 }
             }
             
