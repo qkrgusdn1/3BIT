@@ -383,8 +383,9 @@ public class Player : MonoBehaviourPunCallbacks
     [PunRPC]
     public void RpcJump()
     {
-        animator.Play("Jump");
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+       
+        animator?.Play("Jump");
+        rb?.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 }
 public enum Skill
