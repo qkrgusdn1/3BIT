@@ -200,7 +200,8 @@ public class GameMgr : MonoBehaviourPunCallbacks
                 {
                     players.RemoveAt(i);
                     i--;
-                    UpdatePlayers();
+                    if(!player.startPlayer)
+                        UpdatePlayers();
 
                 }
             }
