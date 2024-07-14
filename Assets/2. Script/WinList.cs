@@ -13,12 +13,12 @@ public class WinList : MonoBehaviour
         ClearMgr.Instance.lobbyLodingPanel = lobbyLodingPanel;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        if (ClearMgr.Instance.win == false)
+        if (ClearMgr.Instance.role == Role.Tagger)
         {
             runnerWin.SetActive(false);
             taggerWin.SetActive(true);
         }
-        else if(ClearMgr.Instance.win == true)
+        else if(ClearMgr.Instance.role == Role.Runner)
         {
             runnerWin.SetActive(true);
             taggerWin.SetActive(false);

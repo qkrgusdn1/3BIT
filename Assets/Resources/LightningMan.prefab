@@ -12060,6 +12060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e12d63df1b4c84a429244dc748b1e529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  role: 1
   bodyTr: {fileID: 9153918393544231761}
   shootTr: {fileID: 7793651243554382215}
   horSensitivity: 10

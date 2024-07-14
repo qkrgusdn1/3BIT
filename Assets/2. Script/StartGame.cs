@@ -109,20 +109,22 @@ public class StartGame : MonoBehaviourPunCallbacks
             yield return new WaitForSeconds(1);
             
         }
-        ClearMgr.Instance.win = false;
         if (GameMgr.Instance.players.Count < 4)
         {
             if (MissionMgr.Instance.missionCountBar.fillAmount >= 1)
             {
-                ClearMgr.Instance.win = false;
+                GameMgr.Instance.MoveClearScenes(Role.Tagger);
             }
             else
             {
-                ClearMgr.Instance.win = true;
+                GameMgr.Instance.MoveClearScenes(Role.Runner);
             }
         }
-        if (PhotonNetwork.IsMasterClient)
-            GameMgr.Instance.MoveClearScenes();
+        else
+        {
+            GameMgr.Instance.MoveClearScenes(Role.Tagger);
+        }
+            
     }
 
     //private void FindAllPlayers()

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviourPunCallbacks
 {
+    public Role role;
     public Transform bodyTr;
     public Transform shootTr;
     public float horSensitivity;
@@ -179,13 +180,7 @@ public class Player : MonoBehaviourPunCallbacks
             GameMgr.Instance.diePanel.SetActive(true);
             GameMgr.Instance.players.Remove(this);
 
-            
-            if (gameObject.CompareTag("Tagger"))
-            {
-                photonView.RPC("RpcDIe", RpcTarget.All);
-                GameMgr.Instance.MoveClearScenes();
-                return;
-            }
+          
             photonView.RPC("RpcDIe", RpcTarget.All);
         }
     }
@@ -333,7 +328,7 @@ public class Player : MonoBehaviourPunCallbacks
     {
         if (gameObject.CompareTag("Tagger"))
         {
-            ClearMgr.Instance.win = true;
+            GameMgr.Instance.MoveClearScenes(Role.Runner);
             return;
         }
         

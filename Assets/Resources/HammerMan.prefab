@@ -7084,6 +7084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56909c8fc6cfcba429ee4968829ed7cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  role: 1
   bodyTr: {fileID: 8841952506534594974}
   shootTr: {fileID: 3256299773065645909}
   horSensitivity: 10

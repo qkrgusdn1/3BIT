@@ -37,17 +37,43 @@ public class GameMgr : MonoBehaviourPunCallbacks
         StartCoroutine(CoUpdate());
         UpdatePlayerCountText();
     }
-    public void MoveClearScenes()
+    public void MoveClearScenes(Role winRole)
     {
         Debug.Log("MoveScenes");
         StopAllCoroutines();
-
-        photonView.RPC("RPCMoveClearScenes", RpcTarget.All);
+        if(PhotonNetwork.IsMasterClient)
+            photonView.RPC("RPCMoveClearScenes", RpcTarget.All, winRole.ToString());
     }
 
     [PunRPC]
-    public void RPCMoveClearScenes()
+    public void RPCMoveClearScenes(string winRole)
     {
+        if(winRole == "Tagger")
+        {
+            if(player.role == Role.Tagger)
+            {
+                ClearMgr.Instance.win = true;
+            }
+            else
+            {
+                ClearMgr.Instance.win = false;
+            }
+            ClearMgr.Instance.role = Role.Tagger;
+
+
+        }
+        else
+        {
+            if (player.role == Role.Runner)
+            {
+                ClearMgr.Instance.win = true;
+            }
+            else
+            {
+                ClearMgr.Instance.win = false;
+            }
+            ClearMgr.Instance.role = Role.Runner;
+        }
         PhotonNetwork.LoadLevel("ClearScenes");
     }
     public void AddPlayer()
@@ -233,8 +259,7 @@ public class GameMgr : MonoBehaviourPunCallbacks
 
         if (!inTagger)
         {
-            ClearMgr.Instance.win = true;
-            MoveClearScenes();
+            MoveClearScenes(Role.Runner);
             StopAllCoroutines();
             return;
         }
@@ -242,14 +267,12 @@ public class GameMgr : MonoBehaviourPunCallbacks
         {
             if (players[0].gameObject.CompareTag("Runner"))
             {
-                ClearMgr.Instance.win = true;
-                MoveClearScenes();
+                MoveClearScenes(Role.Runner);
                 StopAllCoroutines();
             }
             else if (players[0].gameObject.CompareTag("Tagger"))
             {
-                ClearMgr.Instance.win = false;
-                MoveClearScenes();
+                MoveClearScenes(Role.Tagger);
                 StopAllCoroutines();
             }
         }

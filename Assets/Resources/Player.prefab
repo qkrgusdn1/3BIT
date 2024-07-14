@@ -6215,6 +6215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b147bf6e2c79904982b8c326dc10e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  role: 2
   bodyTr: {fileID: 8547773330564099697}
   shootTr: {fileID: 6563242942729759695}
   horSensitivity: 10

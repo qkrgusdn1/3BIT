@@ -13,6 +13,7 @@ public class ClearMgr : MonoBehaviourPunCallbacks
     public GameObject lobbyLodingPanel;
     public Texture2D cusor;
     public bool win;
+    public Role role;
     void Awake()
     {
         instance = this;
@@ -37,3 +38,11 @@ public class ClearMgr : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 }
+
+public enum Role
+{
+    Tagger,
+    Runner,
+    Start
+}
+
