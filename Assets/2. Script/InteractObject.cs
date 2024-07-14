@@ -25,6 +25,11 @@ public class InteractObject : MonoBehaviourPunCallbacks
 
     public void Range()
     {
+        if (GameMgr.Instance == null)
+            return;
+        if (GameMgr.Instance.player == null)
+            return;
+
         runnersInRange = Physics.OverlapSphere(transform.position, range, runnerLayer);
 
         if (!runnersInRange.Contains(GameMgr.Instance.player.GetComponent<Collider>()))

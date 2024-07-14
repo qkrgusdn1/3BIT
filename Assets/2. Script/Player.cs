@@ -179,8 +179,10 @@ public class Player : MonoBehaviourPunCallbacks
             Cursor.visible = true;
             GameMgr.Instance.diePanel.SetActive(true);
             GameMgr.Instance.players.Remove(this);
-
-          
+            if (gameObject.CompareTag("Tagger"))
+            {
+                GameMgr.Instance.MoveClearScenes(Role.Runner);
+            }
             photonView.RPC("RpcDIe", RpcTarget.All);
         }
     }
@@ -326,11 +328,7 @@ public class Player : MonoBehaviourPunCallbacks
     [PunRPC]
     public void RpcDIe()
     {
-        if (gameObject.CompareTag("Tagger"))
-        {
-            GameMgr.Instance.MoveClearScenes(Role.Runner);
-            return;
-        }
+
         
         Destroy(gameObject);
     }

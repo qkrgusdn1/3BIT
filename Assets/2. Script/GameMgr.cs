@@ -1,9 +1,8 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using Photon.Pun;
-using Photon.Realtime;
 using TMPro;
+using UnityEngine;
 
 public class GameMgr : MonoBehaviourPunCallbacks
 {
@@ -27,6 +26,8 @@ public class GameMgr : MonoBehaviourPunCallbacks
     public GameObject connection;
     public GameObject lobbyLodingPanel;
 
+    bool gameOver;
+
     public bool threePlayer;
     void Start()
     {
@@ -39,18 +40,22 @@ public class GameMgr : MonoBehaviourPunCallbacks
     }
     public void MoveClearScenes(Role winRole)
     {
+
         Debug.Log("MoveScenes");
         StopAllCoroutines();
-        if(PhotonNetwork.IsMasterClient)
-            photonView.RPC("RPCMoveClearScenes", RpcTarget.All, winRole.ToString());
+        photonView.RPC("RPCMoveClearScenes", RpcTarget.All, winRole.ToString());
+
     }
 
     [PunRPC]
     public void RPCMoveClearScenes(string winRole)
     {
-        if(winRole == "Tagger")
+        if (gameOver)
+            return;
+        gameOver = true;
+        if (winRole == "Tagger")
         {
-            if(player.role == Role.Tagger)
+            if (player.role == Role.Tagger)
             {
                 ClearMgr.Instance.win = true;
             }
@@ -186,7 +191,7 @@ public class GameMgr : MonoBehaviourPunCallbacks
     //        }
     //        if (!taggerExists)
     //        {
-                
+
     //            ClearMgr.Instance.win = true;
     //            MoveClearScenes();
     //            break;
@@ -226,12 +231,12 @@ public class GameMgr : MonoBehaviourPunCallbacks
                 {
                     players.RemoveAt(i);
                     i--;
-                    if(!player.startPlayer)
+                    if (!player.startPlayer)
                         UpdatePlayers();
 
                 }
             }
-            
+
             yield return new WaitForSeconds(1);
         }
 
@@ -263,6 +268,7 @@ public class GameMgr : MonoBehaviourPunCallbacks
             StopAllCoroutines();
             return;
         }
+        Debug.Log("UpdatePlayers()" + player.role);
         if (players.Count == 1)
         {
             if (players[0].gameObject.CompareTag("Runner"))
@@ -272,6 +278,7 @@ public class GameMgr : MonoBehaviourPunCallbacks
             }
             else if (players[0].gameObject.CompareTag("Tagger"))
             {
+
                 MoveClearScenes(Role.Tagger);
                 StopAllCoroutines();
             }
@@ -310,7 +317,7 @@ public class GameMgr : MonoBehaviourPunCallbacks
             player.esc = true;
             escPanel.SetActive(true);
         }
-        else if(Input.GetKeyDown(KeyCode.Escape) && player.esc)
+        else if (Input.GetKeyDown(KeyCode.Escape) && player.esc)
         {
             if (!player.mission)
             {

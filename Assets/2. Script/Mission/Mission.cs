@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Mission : MonoBehaviour
+public class Mission : MonoBehaviourPunCallbacks
 {
     public ConnectionCrystal connectionCrystal;
     public CrystalMission crystalMission;
@@ -49,10 +49,17 @@ public class Mission : MonoBehaviour
 
         if (MissionMgr.Instance.missionCountBar.fillAmount >= 1)
         {
-            GameMgr.Instance.connection.gameObject.SetActive(false);
+            photonView.RPC("RpcEndMission", RpcTarget.All);
         }
 
         gameObject.SetActive(false);
+    }
+
+    [PunRPC]
+    public void RpcEndMission()
+    {
+        GameMgr.Instance.connection.gameObject.SetActive(false);
+
     }
 
     public virtual void CheckClear()
